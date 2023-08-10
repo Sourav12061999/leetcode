@@ -19,20 +19,21 @@ var minWindow = function (s = "", t = "") {
   }
   if (isValid(need, have)) return s.slice(0, t.length);
   const possible = [];
+  let max = null;
   let left = 0;
   let right = t.length;
   let flag = true;
   while (right < s.length) {
-    // console.log(left, right);
     if (have[s[right]] === undefined) {
       have[s[right]] = 1;
     } else if (flag) {
-      console.log(s[right]);
       have[s[right]]++;
     }
     if (isValid(need, have)) {
       flag = false;
       possible.push([left, right]);
+      if (max === null) max = [left, right];
+      else if (max[1] - max[0] > right - left) max = [left, right];
       have[s[left]] = have[s[left]] - 1;
       left++;
     } else {
@@ -40,6 +41,8 @@ var minWindow = function (s = "", t = "") {
       right++;
     }
   }
+
+  /*
   if (possible.length === 0) return "";
   let maxPossible = possible[0];
   for (let i = 1; i < possible.length; i++) {
@@ -48,7 +51,9 @@ var minWindow = function (s = "", t = "") {
     }
   }
   //   console.log(possible);
-  return s.slice(maxPossible[0], maxPossible[1] + 1);
+  return s.slice(maxPossible[0], maxPossible[1] + 1);*/
+  if (max === null) return "";
+  return s.slice(max[0], max[1] + 1);
 };
 
 function isValid(need, have) {
