@@ -7,15 +7,23 @@ var findMin = function (nums = []) {
 
   while (left <= right) {
     let mid = Math.floor((left + right) / 2);
-    if (nums[left] < nums[mid]) {
-      left = mid + 1;
-    } else {
-      right = mid - 1;
-    }
     min = Math.min(min, nums[mid]);
+    min = Math.min(min, nums[left]);
+    min = Math.min(min, nums[right]);
+    console.log({
+      left,
+      right,
+      mid,
+      min,
+    });
+    if (nums[left] >= nums[mid]) {
+      right = mid - 1;
+    } else {
+      left = mid + 1;
+    }
   }
 
-  return Math.min(min, nums[left]);
+  return min;
 };
 
-console.log(findMin([3, 4, 5, 1, 2]));
+console.log(findMin([4, 5, 6, 7, 0, 1, 2]));
