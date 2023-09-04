@@ -1,7 +1,6 @@
 // ! https://leetcode.com/problems/remove-duplicates-from-sorted-list/
 
 var deleteDuplicates = function (head) {
-  let prev = null;
   let curr = head;
   while (curr) {
     let next = curr.next;
@@ -9,7 +8,6 @@ var deleteDuplicates = function (head) {
       next = next.next;
     }
     curr.next = next;
-    prev = curr;
     curr = next;
   }
   return head;
